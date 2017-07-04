@@ -1,13 +1,18 @@
 package edu.eiti.apiotrowski.szmalcownik
 
+import android.content.Context
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import edu.eiti.apiotrowski.szmalcownik.model.LocationListenerImpl
+
 
 class Main : FragmentActivity(), OnMapReadyCallback {
 
@@ -35,9 +40,22 @@ class Main : FragmentActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val mlocManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val mlocListener = LocationListenerImpl()
+
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, mlocListener)
+
+
+        val pkin = LatLng(52.219978, 21.011543)
+
+
+        mMap!!.addCircle(CircleOptions().center(pkin)
+                .clickable(true)
+                .radius(10.0)
+                .fillColor(0x88ff0000.toInt()))
+
+        mMap!!.addMarker(MarkerOptions().position(pkin).title("KANAR!!! SPIERDALAĆ!!!"))
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(pkin))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(17f));
     }
 }
