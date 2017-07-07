@@ -1,10 +1,10 @@
 package edu.eiti.apiotrowski.szmalcownik.controller
 
 import android.location.Location
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 /**
@@ -17,21 +17,14 @@ class PointsController {
     var circleRadius = 10.0
     var currLocation: LatLng = LatLng(50.0, 20.0)
     var googleMap: GoogleMap? = null
-    var dangerousCollection: MutableList<LatLng> = emptyList<LatLng>() as MutableList<LatLng>
+    var dangerousCollection: MutableList<Marker> = emptyList<Marker>() as MutableList<Marker>
+    var marker: Marker? = null
+
     val ZOOM = 17f
     val RED: Int = 0x88ff0000.toInt()
 
 
     fun addDangerousPoint(location: Location) {
-        showOnMap(location)
-        dangerousCollection.add(LatLng(location.latitude, location.longitude))
-    }
-
-    fun getDangerousPoints(): List<LatLng> {
-        return dangerousCollection
-    }
-
-    fun showOnMap(location: Location) {
 
         currLocation = LatLng(location.latitude, location.longitude)
 
@@ -40,9 +33,21 @@ class PointsController {
                 .radius(circleRadius)
                 .fillColor(RED))
 
-        googleMap?.addMarker(MarkerOptions().position(currLocation).title(title))
-        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(currLocation))
-        googleMap?.animateCamera(CameraUpdateFactory.zoomTo(ZOOM))
+        marker = googleMap?.addMarker(MarkerOptions().position(currLocation).title(title))
+//        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(currLocation))
+//        googleMap?.animateCamera(CameraUpdateFactory.zoomTo(ZOOM))
+
+        dangerousCollection.add(marker!!)
+
     }
+
+    fun getDangerousPoints(): List<Marker> {
+        return dangerousCollection
+    }
+
+    fun removeMarker(index: Int) {
+        dangerousCollection[index].remove()
+    }
+
 
 }
