@@ -5,6 +5,7 @@ import android.location.LocationListener
 import android.os.Bundle
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
@@ -15,7 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 class LocationListenerImpl(var googleMap: GoogleMap) : LocationListener {
 
     var title = "Ty"
-    var currLocation: LatLng = LatLng(50.0, 20.0);
+    var currLocation: LatLng = LatLng(50.0, 20.0)
+    var currMarker: Marker? = null
 
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -34,9 +36,10 @@ class LocationListenerImpl(var googleMap: GoogleMap) : LocationListener {
 
     private fun updateLocation(location: Location?) {
 
-        currLocation = LatLng(location!!.latitude, location.longitude)
-        googleMap.addMarker(MarkerOptions().position(currLocation).title(title))
-
+        currMarker?.remove()
+        currLocation = LatLng((location?.latitude) ?: 0.0, (location?.longitude) ?: 0.0)
+        currMarker = googleMap.addMarker(MarkerOptions().position(currLocation).title(title))//Ty
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currLocation))
 
     }
 }

@@ -20,7 +20,6 @@ class PointsController {
     var dangerousCollection: MutableList<Marker> = emptyList<Marker>() as MutableList<Marker>
     var marker: Marker? = null
 
-    val ZOOM = 17f
     val RED: Int = 0x88ff0000.toInt()
 
 
@@ -34,9 +33,6 @@ class PointsController {
                 .fillColor(RED))
 
         marker = googleMap?.addMarker(MarkerOptions().position(currLocation).title(title))
-//        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(currLocation))
-//        googleMap?.animateCamera(CameraUpdateFactory.zoomTo(ZOOM))
-
         dangerousCollection.add(marker!!)
 
     }

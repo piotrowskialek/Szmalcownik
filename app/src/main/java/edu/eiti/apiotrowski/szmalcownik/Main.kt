@@ -6,15 +6,18 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import edu.eiti.apiotrowski.szmalcownik.model.LocationListenerImpl
 
 
 class Main : FragmentActivity(), OnMapReadyCallback {
 
     private val INITIAL_REQUEST = 1337
+    val ZOOM = 17f
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,8 +42,9 @@ class Main : FragmentActivity(), OnMapReadyCallback {
 
         val mlocManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val mlocListener = LocationListenerImpl(googleMap)
-
         mlocManager.requestLocationUpdates("gps", 0, 0f, mlocListener)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(52.2318774, 21.00417100)))
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM))
 
     }
 }
