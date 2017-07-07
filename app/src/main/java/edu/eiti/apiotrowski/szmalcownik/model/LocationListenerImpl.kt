@@ -3,16 +3,20 @@ package edu.eiti.apiotrowski.szmalcownik.model
 import android.location.Location
 import android.location.LocationListener
 import android.os.Bundle
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 
 /**
  * Created by apiotrowski on 04.07.2017.
  */
 
-class LocationListenerImpl : LocationListener {
+class LocationListenerImpl(var googleMap: GoogleMap) : LocationListener {
 
-    var lat: Double = 0.0
-    var long: Double = 0.0
+    var title = "Ty"
+    var currLocation: LatLng = LatLng(50.0, 20.0);
+
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
     }
@@ -24,7 +28,15 @@ class LocationListenerImpl : LocationListener {
     }
 
     override fun onLocationChanged(location: Location?) {
-        lat = location!!.latitude
-        long = location.longitude
+
+        updateLocation(location)
+    }
+
+    private fun updateLocation(location: Location?) {
+
+        currLocation = LatLng(location!!.latitude, location.longitude)
+        googleMap.addMarker(MarkerOptions().position(currLocation).title(title))
+
+
     }
 }
