@@ -18,7 +18,7 @@ class PointsController {
     var currLocation: LatLng = LatLng(50.0, 20.0)
     var googleMap: GoogleMap? = null
     var dangerousCollection: MutableList<Marker> = mutableListOf()
-    var marker: Marker? = null
+//    var marker: Marker? = null
 
     val RED: Int = 0x88ff0000.toInt()
 
@@ -32,8 +32,8 @@ class PointsController {
                 .radius(circleRadius)
                 .fillColor(RED))
 
-        marker = googleMap?.addMarker(MarkerOptions().position(currLocation).title(title))
-        dangerousCollection.add(marker!!)
+        val marker = googleMap?.addMarker(MarkerOptions().position(currLocation).title(title)) ?: return
+        dangerousCollection.add(marker)
 
     }
 
@@ -42,7 +42,8 @@ class PointsController {
     }
 
     fun removeMarker(index: Int) {
-        dangerousCollection[index].remove()
+        if (dangerousCollection.size > 0)
+            dangerousCollection[index].remove()
     }
 
 }
