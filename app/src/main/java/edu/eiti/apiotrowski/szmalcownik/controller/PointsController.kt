@@ -18,7 +18,6 @@ class PointsController {
     var currLocation: LatLng = LatLng(50.0, 20.0)
     var googleMap: GoogleMap? = null
     var dangerousCollection: MutableList<Marker> = mutableListOf()
-//    var marker: Marker? = null
 
     val RED: Int = 0x88ff0000.toInt()
 
