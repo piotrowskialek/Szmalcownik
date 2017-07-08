@@ -17,7 +17,7 @@ class PointsController {
     var circleRadius = 10.0
     var currLocation: LatLng = LatLng(50.0, 20.0)
     var googleMap: GoogleMap? = null
-    var dangerousCollection: MutableList<Marker> = emptyList<Marker>() as MutableList<Marker>
+    var dangerousCollection: MutableList<Marker> = mutableListOf()
     var marker: Marker? = null
 
     val RED: Int = 0x88ff0000.toInt()
@@ -44,6 +44,5 @@ class PointsController {
     fun removeMarker(index: Int) {
         dangerousCollection[index].remove()
     }
-
 
 }

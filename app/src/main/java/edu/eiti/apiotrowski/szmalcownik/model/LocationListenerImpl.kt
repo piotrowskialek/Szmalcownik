@@ -31,10 +31,10 @@ class LocationListenerImpl(var googleMap: GoogleMap) : LocationListener {
 
     override fun onLocationChanged(location: Location?) {
 
-        updateLocation(location)
+        updateUserLocation(location)
     }
 
-    private fun updateLocation(location: Location?) {
+    private fun updateUserLocation(location: Location?) {
 
         currMarker?.remove()
         currLocation = LatLng((location?.latitude) ?: 0.0, (location?.longitude) ?: 0.0)

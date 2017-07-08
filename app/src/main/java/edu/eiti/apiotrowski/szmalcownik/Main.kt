@@ -16,7 +16,7 @@ import edu.eiti.apiotrowski.szmalcownik.model.LocationListenerImpl
 
 class Main : FragmentActivity(), OnMapReadyCallback {
 
-    private val INITIAL_REQUEST = 1337
+    private val INITIAL_REQUEST = 2137
     val ZOOM = 17f
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class Main : FragmentActivity(), OnMapReadyCallback {
         val permissionCheck = ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
 
-        if (permissionCheck.equals(-1)) {
+        if (permissionCheck == -1) {
             ActivityCompat.requestPermissions(this,
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), INITIAL_REQUEST)
         }
